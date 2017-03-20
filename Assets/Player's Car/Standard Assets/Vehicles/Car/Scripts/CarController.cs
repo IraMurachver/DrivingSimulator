@@ -24,6 +24,7 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private WheelEffects[] m_WheelEffects = new WheelEffects[4];
         [SerializeField] private Vector3 m_CentreOfMassOffset;
         [SerializeField] private float m_MaximumSteerAngle;
+        [SerializeField] private float m_SteeringWheelAngle;
         [Range(0, 1)] [SerializeField] private float m_SteerHelper; // 0 is raw physics , 1 the car will grip in the direction it is facing
         [Range(0, 1)] [SerializeField] private float m_TractionControl; // 0 is no traction control, 1 is full interference
         [SerializeField] private float m_FullTorqueOverAllWheels;
@@ -47,6 +48,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private Rigidbody m_Rigidbody;
         private const float k_ReversingThreshold = 0.01f;
         public GameObject steeringWheel;
+        public GameObject car;
 
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
@@ -72,6 +74,7 @@ namespace UnityStandardAssets.Vehicles.Car
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl*m_FullTorqueOverAllWheels);
 
             steeringWheel = GameObject.Find("SteeringWheel");
+            car = GameObject.Find("Car1");
 
     }
 
@@ -139,6 +142,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 m_WheelColliders[i].GetWorldPose(out position, out quat);
                 m_WheelMeshes[i].transform.position = position;
                 m_WheelMeshes[i].transform.rotation = quat;
+
             }
 
             //clamp input values
@@ -154,18 +158,7 @@ namespace UnityStandardAssets.Vehicles.Car
             m_WheelColliders[1].steerAngle = m_SteerAngle;
 
             //move the steering wheel
-            //Quaternion quat1;
-            //Vector3 position1;
-            //m_WheelColliders[0].GetWorldPose(out position1, out quat1);
-
-           // this.steeringWheel.transform.position = this.transform.parent.position;
-           this.steeringWheel.transform.eulerAngles = new Vector3(m_SteerAngle ,90,0);
-
-
-    
-
-
-
+            this.steeringWheel.transform.eulerAngles = new Vector3(m_SteerAngle*m_SteeringWheelAngle,car.transform.rotation.eulerAngles.y+90,0);
 
             SteerHelper();
             ApplyDrive(accel, footbrake);
