@@ -158,7 +158,7 @@ namespace UnityStandardAssets.Vehicles.Car
             m_WheelColliders[1].steerAngle = m_SteerAngle;
 
             //move the steering wheel
-            this.steeringWheel.transform.eulerAngles = new Vector3(m_SteerAngle*m_SteeringWheelAngle,car.transform.rotation.eulerAngles.y+90,0);
+            this.steeringWheel.transform.eulerAngles = new Vector3(m_SteerAngle*m_SteeringWheelAngle,car.transform.rotation.eulerAngles.y+90, 0);
 
             SteerHelper();
             ApplyDrive(accel, footbrake);
