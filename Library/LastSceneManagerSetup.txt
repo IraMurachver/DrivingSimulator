@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/DrivingSimulator.unity
+  isLoaded: 1
+  isActive: 1
