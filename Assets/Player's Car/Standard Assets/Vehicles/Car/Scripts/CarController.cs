@@ -74,7 +74,7 @@ namespace UnityStandardAssets.Vehicles.Car
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl*m_FullTorqueOverAllWheels);
 
             steeringWheel = GameObject.Find("SteeringWheel");
-            car = GameObject.Find("Car1");
+            car = GameObject.Find("Car");
 
     }
 
